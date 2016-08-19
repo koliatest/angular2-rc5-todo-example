@@ -8,7 +8,11 @@ import {Todo} from "../model/todo.model";
 })
 export class TodoFormComponent {
 
-  @Output() added = new EventEmitter();
+  @Output() added: EventEmitter<Todo>;
+
+  constructor() {
+    this.added = new EventEmitter<Todo>();
+  }
 
   add(title: string) {
 

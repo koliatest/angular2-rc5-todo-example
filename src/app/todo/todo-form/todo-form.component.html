@@ -1,4 +1,4 @@
 <div class="form-div">
-  <input type="text" #inputTitle> <button type="button" (click)="add(inputTitle.value)" inputTitle = ''>Add</button>
+  <input type="text" #inputTitle> <button type="button" (click)="add(inputTitle.value); inputTitle.value = ''">Add</button>
 </div>
 
