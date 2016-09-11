@@ -1,2 +1,4 @@
-<todo-form (added)="addTodo($event)" > </todo-form>
-<todo-list [todos]="todos" (deleted)="deleteItem($event)"> </todo-list>
+<md-card>
+  <todo-form (added)="addTodo($event)" > </todo-form>
+  <todo-list [todos]="todos" (deleted)="deleteItem($event)"> </todo-list>
+</md-card>

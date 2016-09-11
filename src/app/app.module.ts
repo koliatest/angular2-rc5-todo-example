@@ -8,6 +8,10 @@ import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
 import {TodoComponent} from './todo/todo.component';
 import {Home} from './home/home';
+import {MdButton} from '@angular2-material/button'
+import {MdCard} from '@angular2-material/card'
+import {MdInput} from '@angular2-material/input'
+import {MdCheckbox} from '@angular2-material/checkbox'
 import {RepoBrowser} from './github/repo-browser/repo-browser';
 import {RepoList} from './github/repo-list/repo-list';
 import {RepoDetail} from './github/repo-detail/repo-detail';
@@ -20,7 +24,9 @@ import {TodoFormComponent} from "./todo/todo-form/todo-form.component";
   declarations: [
     AppComponent, TodoComponent, RepoBrowser,
     RepoList, RepoDetail, Home, TodoListComponent,
-    TodoItemComponent, TodoFormComponent],
+    TodoItemComponent, TodoFormComponent, MdButton,
+    MdInput, MdCheckbox, MdCard
+  ],
   imports     : [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(rootRouterConfig)],
   providers   : [Github, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap   : [AppComponent]

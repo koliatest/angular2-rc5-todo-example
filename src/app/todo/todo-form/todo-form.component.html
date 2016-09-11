@@ -1,5 +1,7 @@
 <div class="form-div">
-  <input type="text" #inputTitle> <button type="button"
-                                          (click)="add(inputTitle.value); inputTitle.value = ''">Add</button>
+  <md-input type="text" placeholder="Title" #inputTitle> </md-input>
+    <button type="button"
+                                          (click)="add(inputTitle.value); inputTitle.value = ''"
+                                           md-raised-button color="primary">Add</button>
 </div>
 

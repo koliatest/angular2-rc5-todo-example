@@ -1,5 +1,5 @@
-<div>
-  <input type="checkbox"> <label>{{ todo.title }}</label>
+<div id="item">
+  <md-checkbox> </md-checkbox> <label>{{ todo.title }}</label>
 
-  <button type="button" (click)="deleteItem()" >Delete</button>
+  <button md-raised-button color="accent" type="button" (click)="deleteItem()" >Delete</button>
 </div>
