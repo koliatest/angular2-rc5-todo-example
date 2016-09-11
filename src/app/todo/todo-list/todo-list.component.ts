@@ -6,8 +6,7 @@ import {TodoService} from "../service/todo.service";
 @Component({
   selector: 'todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css'],
-  directives: [TodoItemComponent]
+  styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent {
 

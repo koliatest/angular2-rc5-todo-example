@@ -13,9 +13,9 @@ export class TodoService {
   constructor(private http: Http) {}
 
   getTodos() : Promise<ITodo[]> {
-    return this.http.get(this.baseUrl + "/todo-items/")
+    return this.http.get(this.baseUrl + "/todo-items/", { body: ''  })
       .toPromise()
-      .then((response: Response) => response.json())
+      .then(this.extractData)
       .catch(this.handleError);
   }
 
@@ -36,11 +36,9 @@ export class TodoService {
 
   private post(todo: ITodo): Promise<ITodo> {
 
-    let body = JSON.stringify(todo);
-    let headers  = new Headers({
-      'Content-Type': 'application/json'
-    });
-    let options = new RequestOptions({headers: headers});
+    let body = JSON.stringify( todo );
+    let headers  = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
     return this.http.post(this.baseUrl + "/todo-item/", body, options)
       .toPromise()
       .then(this.extractData)
@@ -49,13 +47,11 @@ export class TodoService {
 
   deleteItem(todo: ITodo): Promise<ITodo> {
 
-    let headers  = new Headers({
-      'Content-Type': 'application/json'
-    });
+    let headers  = new Headers({ 'Content-Type': 'application/json' });
 
-    let url = `http://localhost:8080/api/todo-item/${todo.id}`;
+    let url = `${this.baseUrl}/todo-item/${todo.id}`;
 
-    return this.http.delete(url, { headers: headers, body: '' })
+    return this.http.delete(url, { headers, body: '' })
             .toPromise()
             .then(res => todo)
             .catch(this.handleError);
