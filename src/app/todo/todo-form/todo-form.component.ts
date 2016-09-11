@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
-import {Todo} from "../model/todo.model";
+import {Todo, ITodo} from "../model/todo.model";
 
 @Component({
   selector: 'todo-form',
@@ -8,10 +8,10 @@ import {Todo} from "../model/todo.model";
 })
 export class TodoFormComponent {
 
-  @Output() added: EventEmitter<Todo>;
+  @Output() added: EventEmitter<ITodo>;
 
   constructor() {
-    this.added = new EventEmitter<Todo>();
+    this.added = new EventEmitter<ITodo>();
   }
 
   add(title: string) {

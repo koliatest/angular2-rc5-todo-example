@@ -1,5 +1,6 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Todo, ITodo} from "../model/todo.model";
+import {TodoService} from "../service/todo.service";
 
 @Component({
   selector: 'todo-item',
@@ -8,5 +9,15 @@ import {Todo, ITodo} from "../model/todo.model";
 })
 export class TodoItemComponent {
 
-  @Input() todoItem: ITodo;
+  @Input() todo: ITodo;
+
+  @Output() deleted: EventEmitter<ITodo>;
+
+  constructor() {
+    this.deleted = new EventEmitter<ITodo>();
+  }
+
+  deleteItem() {
+    this.deleted.emit(this.todo);
+  }
 }

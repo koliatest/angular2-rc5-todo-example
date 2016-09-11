@@ -1,13 +1,9 @@
 import {Injectable} from "@angular/core";
-import {Http, Headers, RequestOptions} from "@angular/http";
+import {Http, Headers, RequestOptions, Response} from "@angular/http";
 
 import {ITodo} from "../model/todo.model";
 
-import { Observable } from 'rxjs/Observable';
-
-import "rxJs/add/operator/map";
-import "rxJs/add/operator/catch";
-import "rxJs/add/observable/throw";
+import "rxjs/add/operator/toPromise";
 
 @Injectable()
 export class TodoService {
@@ -16,17 +12,29 @@ export class TodoService {
 
   constructor(private http: Http) {}
 
-  getTodos() : Observable<ITodo[]> {
+  getTodos() : Promise<ITodo[]> {
     return this.http.get(this.baseUrl + "/todo-items/")
-      .map(res => res.json())
+      .toPromise()
+      .then((response: Response) => response.json())
       .catch(this.handleError);
   }
 
-  addTodo(todo : ITodo): Observable<ITodo> {
+  private extractData(res: Response) {
+    let body;
+
+    // check if empty, before call json
+    if (res.text()) {
+      body = res.json();
+    }
+
+    return body || {};
+  }
+
+  addTodo(todo : ITodo): Promise<ITodo> {
     return this.post(todo);
   }
 
-  private post(todo: ITodo): Observable<ITodo> {
+  private post(todo: ITodo): Promise<ITodo> {
 
     let body = JSON.stringify(todo);
     let headers  = new Headers({
@@ -34,12 +42,27 @@ export class TodoService {
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(this.baseUrl + "/todo-item/", body, options)
-      .map(res => res.json().data)
+      .toPromise()
+      .then(this.extractData)
       .catch(this.handleError);
   }
 
-  private handleError(error: any) : Observable<any> {
-    console.log("Error is: " , error);
-    return Observable.throw(error.message || error);
+  deleteItem(todo: ITodo): Promise<ITodo> {
+
+    let headers  = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    let url = `http://localhost:8080/api/todo-item/${todo.id}`;
+
+    return this.http.delete(url, { headers: headers, body: '' })
+            .toPromise()
+            .then(res => todo)
+            .catch(this.handleError);
+  }
+
+  private handleError(error: any) : Promise<any> {
+    console.log('Произошла ошибка', error);
+    return Promise.reject(error.message || error);
   }
 }
